@@ -13,11 +13,57 @@ class Produto {
     }
 
     public function salvar() {
-        // AQUI VOCÊ CONECTA NO BANCO DE DADOS E FAZ O INSERT
-        // Exemplo fictício com PDO:
-        // $stmt = $pdo->prepare("INSERT INTO produtos (nome, preco, quantidade, descricao) VALUES (?, ?, ?, ?)");
-        // return $stmt->execute([$this->nome, $this->preco, $this->quantidade, $this->descricao]);
-        
-        return true; // Simulação de sucesso
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $produtos = $_SESSION['produtos'] ?? self::listarTodos();
+
+        $produtos[] = [
+            'id' => count($produtos) + 1,
+            'nome' => $this->nome,
+            'preco' => (float) $this->preco,
+            'quantidade' => (int) $this->quantidade,
+            'descricao' => $this->descricao,
+        ];
+
+        $_SESSION['produtos'] = $produtos;
+
+        return true;
+    }
+
+    // NOVO MÉTODO PARA LISTAR OS PRODUTOS
+    public static function listarTodos() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (empty($_SESSION['produtos'])) {
+            $_SESSION['produtos'] = [
+                [
+                    'id' => 1,
+                    'nome' => 'Teclado Mecânico',
+                    'preco' => 250.00,
+                    'quantidade' => 15,
+                    'descricao' => 'Teclado RGB switch azul'
+                ],
+                [
+                    'id' => 2,
+                    'nome' => 'Rato Gamer',
+                    'preco' => 120.50,
+                    'quantidade' => 30,
+                    'descricao' => 'Rato óptico 10000 DPI'
+                ],
+                [
+                    'id' => 3,
+                    'nome' => 'Monitor 24"',
+                    'preco' => 899.90,
+                    'quantidade' => 8,
+                    'descricao' => 'Monitor IPS Full HD 75Hz'
+                ]
+            ];
+        }
+
+        return $_SESSION['produtos'];
     }
 }

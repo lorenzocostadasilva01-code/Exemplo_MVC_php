@@ -7,58 +7,52 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-light">
+<body>
+    <div class="page-shell">
+        <div class="panel">
+            <div class="panel-header">
+                <span class="eyebrow">Loja</span>
+                <h1 class="panel-title">Cadastro de Produtos</h1>
+                <p class="panel-subtitle">Gerencie seus itens com rapidez.</p>
+            </div>
 
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                
-                <div class="text-center mb-4">
-                    <h1 class="h3 fw-bold text-primary">Cadastro de Produtos</h1>
-                </div>
-
+            <div class="panel-body">
                 <?php if (!empty($mensagem)): ?>
-                    <div class="alert alert-<?= $tipoAlerta = $tipoAlerta ?? ''; htmlspecialchars($tipoAlerta ?: 'info'); ?> alert-dismissible fade show" role="alert">
+                    <div class="alert alert-<?= $tipoAlerta = $tipoAlerta ?? ''; htmlspecialchars($tipoAlerta ?: 'info'); ?>" role="alert">
                         <?= htmlspecialchars($mensagem); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php endif; ?>
 
-                <div class="card shadow-sm border-0">
-                    <div class="card-body p-4">
-                        <form action="index.php?acao=salvar" method="POST">
-                            
-                            <div class="mb-3">
-                                <label for="nome_produto" class="form-label fw-semibold">Nome do Produto</label>
-                                <input type="text" class="form-control" id="nome_produto" name="nome_produto" required>
-                            </div>
+                <div class="form-card">
+                    <form action="index.php?acao=salvar" method="POST">
+                        <div class="mb-3">
+                            <label for="nome_produto" class="form-label">Nome do Produto</label>
+                            <input type="text" class="form-control" id="nome_produto" name="nome_produto" placeholder="Ex: Notebook Gamer" required>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="preco" class="form-label fw-semibold">Preço (R$)</label>
-                                    <input type="number" step="0.01" class="form-control" id="preco" name="preco" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="quantidade" class="form-label fw-semibold">Quantidade</label>
-                                    <input type="number" class="form-control" id="quantidade" name="quantidade" required>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="preco" class="form-label">Preço (R$)</label>
+                                <input type="number" step="0.01" min="0" class="form-control" id="preco" name="preco" placeholder="0.00" required>
                             </div>
-
-                            <div class="mb-4">
-                                <label for="descricao" class="form-label fw-semibold">Descrição</label>
-                                <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
+                            <div class="col-md-6 mb-3">
+                                <label for="quantidade" class="form-label">Quantidade</label>
+                                <input type="number" min="0" class="form-control" id="quantidade" name="quantidade" placeholder="1" required>
                             </div>
+                        </div>
 
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg">Salvar Produto</button>
-                            </div>
+                        <div class="mb-4">
+                            <label for="descricao" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="descricao" name="descricao" rows="4" placeholder="Descreva o produto..."></textarea>
+                        </div>
 
-                        </form>
-                    </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Salvar Produto</button>
+                        </div>
+                    </form>
                 </div>
 
                 <?php include 'Rodapé.php'; ?>
-
             </div>
         </div>
     </div>

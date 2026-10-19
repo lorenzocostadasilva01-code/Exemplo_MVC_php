@@ -1,0 +1,1 @@
+Para iniciar o basta iniciar o Apache no Xampp. :3
