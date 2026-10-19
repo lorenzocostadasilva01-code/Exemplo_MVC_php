@@ -1,15 +1,13 @@
-<?php 
+<?php
+require_once 'controller/ProdutoController.php';
 
-?>
+$controller = new ProdutoController();
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo mvc</title>
-</head>
-<body>
-    
-</body>
-</html>
+// Pega a ação da URL (ex: index.php?acao=cadastrar)
+$acao = $_GET['acao'] ?? 'novo';
+
+if ($acao === 'salvar') {
+    $controller->salvar();
+} else {
+    $controller->exibirFormulario();
+}
